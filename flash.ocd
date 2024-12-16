@@ -1,0 +1,15 @@
+adapter driver remote_bitbang
+adapter speed 10000
+remote_bitbang port 2223
+remote_bitbang host localhost
+#remote_bitbang use_remote_sleep yes
+
+reset_config none separate
+
+jtag newtap ecp5 tap -irlen 8 -expected-id 0x21111043
+
+init
+scan_chain
+svf -tap ecp5.tap output/blinky.svf -progress
+shutdown
+
