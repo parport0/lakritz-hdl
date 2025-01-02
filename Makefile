@@ -1,4 +1,4 @@
-VERILOGS ?= blinky.v ddmi.v pll_250.v # segment_2x7.v
+VERILOGS ?= blinky.v sdram.v pll_250.v segment_2x7.v fifo_sync.v # ddmi.v
 
 blinky_lakritz: $(VERILOGS)
 	mkdir -p output
@@ -7,7 +7,11 @@ blinky_lakritz: $(VERILOGS)
 	ecppack -v --compress --freq 2.4 output/blinky_out.config --bit output/blinky.bit --svf output/blinky.svf
 
 simulation_ddmi: ddmi.v ddmi_test.v
-	iverilog -Wall -o output/ddmi_test ddmi_test.v ddmi.v
+	iverilog -Wall -o output/ddmi_test $^
 	cd output && vvp ddmi_test
+
+simulation_sdram: sdram.v sdram_test.v fifo_sync.v
+	iverilog -Wall -o output/sdram_test $^
+	cd output && vvp sdram_test
 
 all: blinky_lakritz

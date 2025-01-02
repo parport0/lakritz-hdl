@@ -4,14 +4,21 @@ module segment_2x7 (
 	output [6:0] pmod_a,
 	output pmod_a10
 	);
-	reg [6:0] digit;
+	//reg [6:0] content;
+	//assign pmod_a = content;
+	//always @(posedge clk)
+	//begin
+	//	content <= number[6:0];
+	//end
+
+	reg [6:0] digit_counter;
 	reg [6:0] content;
-	assign pmod_a10 = ~digit[6];
+	assign pmod_a10 = ~digit_counter[6];
 	assign pmod_a = content;
 	always @(posedge clk)
 	begin
-		digit <= digit + 1;
-		case (number[digit[6]*4 +: 4])
+		digit_counter <= digit_counter + 1;
+		case (number[digit_counter[6]*4 +: 4])
 			4'b0000: content <= 7'b1000000; // 0
 			4'b0001: content <= 7'b1111001; // 1
 			4'b0010: content <= 7'b0100100; // 2
