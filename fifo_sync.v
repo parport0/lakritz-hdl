@@ -1,3 +1,5 @@
+// "FIFO" of depth 1 :)
+// Same-clock only (no clock domain crossing)
 module fifo_sync (
 	input clk,
 	input [40:0] data_in,

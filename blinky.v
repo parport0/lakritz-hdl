@@ -135,7 +135,7 @@ module top (
 
 	always @(posedge CLK_48) begin
 		if (state == 0) begin
-			errors <= 0;
+			//errors <= 0;
 			responses_fifo_read_reg <= 0;
 			if (!requests_fifo_full) begin
 				requests_fifo_data_reg <= {1'b1, // write
